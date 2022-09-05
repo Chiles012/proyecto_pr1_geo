@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de UFO´s</title>
+</head>
+<body>
+
+    <style>
+        #map {
+            margin: 0 auto;
+            height: 750px;
+            width: 750px;
+        }
+    </style>
+
+    <h1>Mapa de UFO´s</h1>
+
+    <div id="map"></div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw1Fti-DJpKLBumD9Q4HPhk_rmOO3xyPw&callback=initMap" async defer></script>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: { lat: 37.0902, lng: -95.7129 },
+            });
+            setMarkers(map);
+        }
+
+        function setMarkers(map) {
+            const image = {
+                url: "https://img.icons8.com/officel/35/sci-fi.png",
+                size: new google.maps.Size(35, 35),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 35),
+            };
+            const shape = {
+                coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                type: "poly",
+            };
+            
+            {% for ufo in ufos %}
+                new google.maps.Marker({
+                    position: { lat: {{ ufo.latitude }}, lng: {{ ufo.longitude }} },
+                    map,
+                    icon: image,
+                    shape: shape,
+                    title: "{{ ufo.city }}",
+                    zIndex: 1,
+                });
+            {% endfor %}
+            /*for (let i = 0; i < ufos.length; i++) {
+                const ufo = ufos[i];
+                new google.maps.Marker({
+                    position: { lat: ufo[1], lng: ufo[2] },
+                    map,
+                    icon: image,
+                    shape: shape,
+                    title: ufo[0],
+                    zIndex: ufo[3],
+                });
+            }*/
+        }
+    </script>
+
+</body>
+</html>

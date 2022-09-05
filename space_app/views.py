@@ -6,6 +6,17 @@ from pandas import read_csv
 def index(request):
     return HttpResponse("Hello world!")
 
+def mapa(request):
+    ufos = Ufo.encounters.all()
+
+    print(ufos)
+
+    context = {
+        'ufos': ufos
+    }
+
+    return render(request, 'mapa.html', context)
+
 # save excel in database
 def ufos(request):
 

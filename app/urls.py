@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('ufos/', views.ufos, name='ufos'), # save excel in database
+    path('mapa/', views.mapa, name='mapa'),
 ]
