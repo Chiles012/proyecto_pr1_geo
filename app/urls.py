@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('ufos/', views.ufos, name='ufos'), # save excel in database
+    path('meteorites/', views.meteorite, name='meteorites'), # save excel in database
+    path('meteorites-mapa/', views.mapa_meteorite, name='meteorites_mapa'), # mapa de meteorites
     path('mapa/', views.mapa, name='mapa'),
 ]
