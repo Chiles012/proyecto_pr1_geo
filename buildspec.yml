@@ -9,7 +9,9 @@ phases:
       - echo Installing dependencies
       - yum -y update
       - yum -y install mysql-devel
-      - pip install mysql-connector-python
+      - yum -y install python-devel
+      - yum -y install mysql57-devel
+      - yum -y install python36-devel
       - pip install -r requirements.txt
 
   build:
