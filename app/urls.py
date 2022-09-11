@@ -22,4 +22,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('meteorites-mapa/', views.mapa_meteorite, name='meteorites_mapa'), # mapa de meteorites
     path('mapa/', views.mapa, name='mapa'),
+    path('datametrics/<str:min>/<str:max>', views.metricas, name='datametrics'), # mapa con metricas
+    path('datametrics-mean/', views.metricsMean, name='datametrics-mean'), # mapa con promedio  
 ]
