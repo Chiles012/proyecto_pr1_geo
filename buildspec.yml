@@ -7,7 +7,7 @@ phases:
     commands:
       # Install dependencies needed for running tests
       - echo Installing dependencies
-      - yum -y install mysql-devel python-devel
+      - yum -y install mariadb-devel python-devel
       - pip install -r requirements.txt
 
   build:
