@@ -7,7 +7,6 @@ phases:
     commands:
       # Install dependencies needed for running tests
       - echo Installing dependencies
-      - yum -y install mariadb-devel python-devel
       - wich mariadb_config
       - pip install -r requirements.txt
 
