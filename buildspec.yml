@@ -7,7 +7,6 @@ phases:
     commands:
       # Install dependencies needed for running tests
       - echo Installing dependencies
-      - wich mariadb_config
       - pip install -r requirements.txt
 
   build:
