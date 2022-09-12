@@ -7,8 +7,6 @@ phases:
     commands:
       # Install dependencies needed for running tests
       - echo Installing dependencies
-      - yum -y update
-      - which mysql_config
       - pip install -r requirements.txt
 
   build:
