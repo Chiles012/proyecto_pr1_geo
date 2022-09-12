@@ -1,8 +1,5 @@
-from asyncio.windows_events import NULL
-from multiprocessing import context
 from django.shortcuts import render, HttpResponse
 from space_app.models import Ufo, Meteorite
-from pandas import read_csv, isna
 import numpy as np
 
 # Create your views here.
