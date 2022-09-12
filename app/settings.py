@@ -25,7 +25,7 @@ SECRET_KEY = 'nb40*j046j$gcy7bz8&*tde&d@8-2x0sua8d$^ci&8kc94ad*s'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["spaceapp.eba-r27y2axa.us-east-2.elasticbeanstalk.com"]
+ALLOWED_HOSTS = ["spaceapp.eba-r27y2axa.us-east-2.elasticbeanstalk.com", "127.0.0.1"]
 
 
 # Application definition
