@@ -1,17 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data-metrics-mean</title>
-</head>
-<body>
+{% extends 'layout.html' %}
+{% load static %}
 
-    <h1>Promedio de duración de los segundos de encuentro</h1>
-    <h2 id="promedio"></h2>
+{% block title %}Data-metrics-mean{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+    <div class="row" style="margin: 50px;">
+        <div class="col">
+            <h3>Promedio de duración de los segundos de encuentro</h3>
+            <h1 style="color: #ca2641;" id="promedio"></h1>
+        </div>
+        <div class="col">
+            <div class="list-group">
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics-mean/" class="list-group-item list-group-item-action">Promedio</a>
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics/0/1" class="list-group-item list-group-item-action">Mayor</a>
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics/1/0 " class="list-group-item list-group-item-action">Menor</a>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById("promedio").innerHTML = {{promedio}};
     </script>
-</body>
-</html>
+    
+    
+{% endblock %}

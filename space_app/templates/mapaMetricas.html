@@ -5,17 +5,22 @@
 
 {% block content %}
 {{block.super}}
-    <style>
-        #map {
-            margin: 0 auto;
-            height: 750px;
-            width: 750px;
-        }
-    </style>
 
-    <h1 id="accion">Mapa de UFO´s</h1>
+<div class="m-5">
 
-    <div id="map"></div>
+    <div class="row">
+            <div class="col">
+                <div id="map"></div>
+            </div>
+            <div class="col list-group">
+                <h1 id="accion">Mapa de UFO´s</h1>
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics-mean/" class="list-group-item list-group-item-action">Promedio</a>
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics/0/1" class="list-group-item list-group-item-action">Mayor</a>
+                <a style="background-color: rgba(108, 104, 111, 0.46); color: white;" href="/datametrics/1/0 " class="list-group-item list-group-item-action">Menor</a>
+            </div>
+    </div>
+
+</div>
 
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw1Fti-DJpKLBumD9Q4HPhk_rmOO3xyPw&callback=initMap" async defer></script>
 
