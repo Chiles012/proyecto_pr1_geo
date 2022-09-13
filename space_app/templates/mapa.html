@@ -48,29 +48,28 @@
             };
             
             {% for ufo in ufos %}
-                new google.maps.Marker({
+                let marker{{ ufo.id }} = new google.maps.Marker({
                     position: { lat: {{ ufo.latitude }}, lng: {{ ufo.longitude }} },
                     map,
                     icon: image,
                     shape: shape,
                     title: "{{ ufo.city }}",
                     zIndex: 1,
-                }).addListener("click", () => {
+                })
+                
+                marker{{ ufo.id }}.addListener("click", () => {
                     console.log("{{ ufo.city }}");
                     new google.maps.InfoWindow({
                         content: `
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ ufo.city }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">{{ ufo.state }}</h6>
-                                    <p class="card-text">{{ ufo.shape }}</p>
-                                    <p class="card-text">{{ ufo.duration }}</p>
-                                    <p class="card-text">{{ ufo.date }}</p>
-                                    <p class="card-text">{{ ufo.comments }}</p>
+                                    <p class="card-text">{{ ufo.length_of_encounter_seconds }}</p>
+                                    <p class="card-text">{{ ufo.description }}</p>
                                 </div>
                             </div>
                         `,
-                    }).open(map, this);
+                    }).open(map, marker{{ ufo.id }});
                 });
             {% endfor %}
         }

@@ -24,4 +24,5 @@ urlpatterns = [
     path('mapa/', views.mapa, name='mapa'),
     path('datametrics/<str:min>/<str:max>', views.metricas, name='datametrics'), # mapa con metricas
     path('datametrics-mean/', views.metricsMean, name='datametrics-mean'), # mapa con promedio  
+    path('graphics/', views.grafica, name='grafica'), # grafica
 ]

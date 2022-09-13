@@ -1,6 +1,8 @@
+import json
 from django.shortcuts import render, HttpResponse
 from space_app.models import Ufo, Meteorite
 import numpy as np
+from django.db.models import Count
 
 # Create your views here.
 def index(request):
@@ -54,3 +56,23 @@ def metricsMean(request):
         "promedio" :encounter_seconds_array.mean()
     }
     return render(request, 'promedioMetricas.html', context)
+
+def grafica(request):
+
+    ufos_label = Ufo.encounters.values_list("city").distinct()[0:100]
+    ufos_values = Ufo.encounters.values_list("city").annotate(Count("city"))[0:100]
+
+    meteorites_s = Meteorite.meteorites.values_list("mass")
+
+    ufos_json_label = json.dumps(list(ufos_label))
+    ufos_json_data = json.dumps(list(ufos_values))
+    meteorites_json = json.dumps(list(meteorites_s))
+
+
+    context = {
+        'ufos_labels': ufos_json_label,
+        'ufos_data': ufos_json_data,
+        'meteorites': meteorites_json
+    }
+
+    return render(request, 'graficas.html', context)
