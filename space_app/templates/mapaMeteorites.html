@@ -51,8 +51,20 @@
                     map,
                     icon: image,
                     shape: shape,
-                    title: "{{ ufo.name }}",
+                    title: "{{ meteorite.name }}",
                     zIndex: 1,
+                }).addListener("click", () => {
+                    new google.maps.InfoWindow({
+                        content: `<div class="info-window">
+                                    <h5 class="info-window-title">{{ meteorite.name }}</h5>
+                                    <p class="info-window-text">Mass: {{ meteorite.mass }} g</p>
+                                    <p class="info-window-text">Year: {{ meteorite.year }}</p>
+                                    <p class="info-window-text">Class: {{ meteorite.recclass }}</p>
+                                    <p class="info-window-text">Fall: {{ meteorite.fall }}</p>
+                                    <p class="info-window-text">Lat: {{ meteorite.latitude }}</p>
+                                    <p class="info-window-text">Long: {{ meteorite.longitude }}</p>
+                                </div>`,
+                    }).open(map, this);
                 });
             {% endfor %}
         }

@@ -55,6 +55,22 @@
                     shape: shape,
                     title: "{{ ufo.city }}",
                     zIndex: 1,
+                }).addListener("click", () => {
+                    console.log("{{ ufo.city }}");
+                    new google.maps.InfoWindow({
+                        content: `
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ ufo.city }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">{{ ufo.state }}</h6>
+                                    <p class="card-text">{{ ufo.shape }}</p>
+                                    <p class="card-text">{{ ufo.duration }}</p>
+                                    <p class="card-text">{{ ufo.date }}</p>
+                                    <p class="card-text">{{ ufo.comments }}</p>
+                                </div>
+                            </div>
+                        `,
+                    }).open(map, this);
                 });
             {% endfor %}
         }
