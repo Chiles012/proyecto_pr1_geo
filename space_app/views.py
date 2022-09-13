@@ -4,7 +4,7 @@ import numpy as np
 
 # Create your views here.
 def index(request):
-    return HttpResponse("Hello world!")
+    return render(request, 'index.html')
 
 def mapa_meteorite(request):
 

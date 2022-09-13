@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+<div class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://wallpaperaccess.com/full/1325769.jpg" width="100%" height="500px" class="d-block" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img src="https://ak.picdn.net/shutterstock/videos/1061517676/thumb/6.jpg?ip=x480" width="100%" height="500px" class="d-block" alt="...">
+      </div>
+    </div>
+  </div>
+  
+  <div class="container-fluid row" style="margin-top: 50px;">
+    <div class="col" style="margin: 30px; padding: 70px; border-radius: 20px; background-color: rgba(108, 104, 111, 0.603);">
+      <img src="../static/images/space-travel.png" width="100px" style="opacity: 50%; margin-bottom: 30px;" alt="meteorite">
+      <h5 class="">SpaceApp</h5>
+      <p style="margin-top: 30px;">The Meteoritical Society collects data on meteorites that have fallen to Earth from outer space. This dataset includes the location, mass, composition, and fall year for over 45,000 meteorites that have struck our planet.</p>
+    </div>
+    <div class="col" style="margin: 30px; padding: 70px; border-radius: 20px; background-color: rgba(108, 104, 111, 0.603);">
+      <img src="../static/images/meteorite-index.png" width="100px" style="opacity: 50%; margin-bottom: 30px;" alt="meteorite">
+      <h5 class="">Meteorite Landings</h5>
+      <a href="https://data.nasa.gov/Space-Science/Meteorite-Landings/gh4g-9sfh"><h6 class="mb-2 text-muted">NASA</h6></a>
+      <p style="margin-top: 30px;">The Meteoritical Society collects data on meteorites that have fallen to Earth from outer space. This dataset includes the location, mass, composition, and fall year for over 45,000 meteorites that have struck our planet.</p>
+    </div>
+    <div class="col" style="margin: 30px; padding: 70px; border-radius: 20px; background-color: rgba(108, 104, 111, 0.603);">
+      <img src="../static/images/ufo-index.png" width="100px" style="opacity: 50%; margin-bottom: 30px;" alt="ufo">
+      <h5 class="">UFO Sightings around the world</h5>
+      <a href="https://github.com/planetsig/ufo-reports"><h6 class="mb-2 text-muted">planetsig</h6></a>
+      <p class="">This dataset contains over 80,000 records of UFO sightings dating back as far as 1949. With the latitude and longitude data it is possible to assess the global distribution of UFO sightings. The dates and times, along with the duration of the UFO's stay and description of the craft also lend themselves to predictions.</p>
+    </div>
+  </div>
+
+{% endblock %}
