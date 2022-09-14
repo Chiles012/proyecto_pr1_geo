@@ -9,12 +9,18 @@
 {{block.super}}
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-    <div style="width: 100%; height: 20em; margin-top: 3em;">
-        <canvas id="myChartUfos" style="margin-bottom: 30px; width: 90%; height: 100%;"></canvas>
+
+    <div class="m-5">
+        <h5 class="m-2">UFO's per location</h5>
+        <div style="width: 100%; height: 20em; margin-top: 3em;">
+            <canvas id="myChartUfos" style="color: aliceblue; margin-bottom: 30px; width: 90%; height: 100%;"></canvas>
+        </div>
+        <div style="width: 100%; height: 20em; margin-top: 3em;">
+            <canvas id="myChartMeteorites" style="color: aliceblue; margin-bottom: 30px; width: 90%; height: 100%;"></canvas>
+        </div>
     </div>
-    <div style="width: 100%; height: 20em; margin-top: 3em;">
-        <canvas id="myChartMeteorites" style="margin-bottom: 30px; width: 90%; height: 100%;"></canvas>
-    </div>
+
+    
 
     <script>
         var ctx = document.getElementById('myChartUfos').getContext('2d');

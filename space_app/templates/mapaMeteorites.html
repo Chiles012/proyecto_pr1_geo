@@ -10,7 +10,7 @@
       <img class="float-img" width="30px" src="../static/images/ufo-index.png" alt="meteorites">
     </a>
     
-    <div class="row" style="margin: 100px;">
+    <div class="row" style="margin: 70px;">
         <div class="col">
             <div id="map"></div>
         </div>
@@ -57,7 +57,7 @@
                 
                 marker{{ meteorite.id }}.addListener("click", () => {
                     new google.maps.InfoWindow({
-                        content: `<div class="info-window">
+                        content: `<div  style="background-color: #14151d; color: white;" class="info-window">
                                     <h5 class="info-window-title">{{ meteorite.name }}</h5>
                                     <p class="info-window-text">Mass: {{ meteorite.mass }} g</p>
                                     <p class="info-window-text">Year: {{ meteorite.year }}</p>
