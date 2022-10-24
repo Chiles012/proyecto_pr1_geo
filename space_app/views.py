@@ -3,6 +3,8 @@ from django.shortcuts import render, HttpResponse
 from space_app.models import Ufo, Meteorite
 import numpy as np
 from django.db.models import Count
+from sklearn.datasets import make_blobs
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 def index(request):
@@ -76,3 +78,53 @@ def grafica(request):
     }
 
     return render(request, 'graficas.html', context)
+
+def mapa_poblacion(request):
+    points = Point.objects.all()
+
+    return render(request, 'mapaPoblacion.html', {
+        'points': points
+    })
+
+@csrf_exempt
+def crear_poblacion(request):
+    rangoslng = request.POST['rangoslng']
+    rangoslat = request.POST['rangoslat']
+    num_puntos = request.POST['numpuntos']
+    dispersion = request.POST['dispersion']
+
+    rangoslng = rangoslng.split(',')
+    rangoslat = rangoslat.split(',')
+    num_puntos = int(num_puntos)
+    dispersion = float(dispersion)
+
+    if (len(rangoslng) != 2 and len(rangoslat) != 2):
+        return render(request, 'index.html', {
+            'error': 'Los rangos deben ser de 2 valores'
+        })
+    elif (num_puntos <= 0):
+        return render(request, 'index.html', {
+            'error': 'El número de puntos debe ser mayor a 0'
+        })
+    elif (dispersion <= 0 or dispersion > 1):
+        return render(request, 'index.html', {
+            'error': 'La dispersión debe ser mayor a 0 y menor o igual a 1'
+        })
+    else:
+        x, y = make_blobs(n_samples=num_puntos, 
+                            centers=1, cluster_std=dispersion, 
+                            center_box=([rangoslng[0], rangoslat[0]], [rangoslng[1], rangoslat[1]]), 
+                            random_state=1
+                        )
+
+        for i in x:
+            point = Point()
+            point.lat = i[0]
+            point.lng = i[1]
+            point.save()
+
+        points = Point.objects.all()
+
+        return render(request, 'mapa-poblaciones.html', {
+            'points': points
+        })

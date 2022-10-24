@@ -79,8 +79,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': "space_db",
         'USER': 'root',  
-        'PASSWORD': 'root1234',  
-        'HOST': 'space-app-django.cqthxuvxhhch.us-east-2.rds.amazonaws.com',  
+        'PASSWORD': 'root',  
+        'HOST': 'localhost',  
         'PORT': '3306',  
         'OPTIONS': {  
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
