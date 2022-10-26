@@ -33,7 +33,6 @@ class Meteorite(models.Model):
     meteorites = models.Manager() # Meteorite.meteorites.all() devuelve una lista con todos los objetos Meteorite
     validMeteorites = MeteoriteManager() # devuelve solo meteoritos con coordenadas y años válidos
 
-
 class Point(models.Model):
     id = models.AutoField(primary_key=True)
     lat = models.DecimalField(max_digits=9, decimal_places=6) 

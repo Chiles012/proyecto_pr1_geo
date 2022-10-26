@@ -1,6 +1,8 @@
+from array import array
+from dis import dis
 import json
 from django.shortcuts import render, HttpResponse
-from space_app.models import Point, Ufo, Meteorite
+from space_app.models import Kmean, Point, Ufo, Meteorite
 import numpy as np
 from django.db.models import Count
 from sklearn.datasets import make_blobs
@@ -163,6 +165,14 @@ def entrenarModelo(request):
             'error': 'El máximo de iteraciones es 300'
         })
     else:
+
+        kmean = Kmean()
+        kmean.numclusters = num_clusters
+        kmean.tolerancia = tolerancia
+        kmean.numiteraciones = num_iteraciones
+        kmean.dispersion = dispersion
+        kmean.save()
+
         km = KMeans(
             n_clusters=num_clusters,
             init='random',
@@ -172,9 +182,14 @@ def entrenarModelo(request):
         )
 
         points = Point.objects.all()
+        x = array([])
+        for i in points:
+            lat = points[i].lat
+            lng = points[i].lng
+            x.append([lat,lng])
 
         # Clusters con los puntos
-        train_km = km.fit_predict(points)
+        train_km = km.fit_predict(x)
 
         return render(request, 'mapaPersonalizado.html', {
             'points': points
