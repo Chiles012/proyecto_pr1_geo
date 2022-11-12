@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}UFOs{% endblock %}
+
+{% block content %}
+{{block.super}}
+
+    <div class="row" style="margin: 70px;">
+        <div class="col">
+            <div id="map"></div>
+        </div>
+        <div class="col" style="margin: 30px; padding: 70px; border-radius: 20px; background-color: rgba(108, 104, 111, 0.603);">
+            <form action="/crear-poblacion" method="POST">
+                <div style="display: flex; gap: 5px; width: 100%; justify-content: space-between; margin: 15px 0;">
+                    <input class="text-field" type="text" name="rangoslng" id="rangoslng" placeholder="Rangos de longitud">
+                </div>
+                <div style="display: flex; gap: 5px; width: 100%; justify-content: space-between; margin: 15px 0;">
+                    <input class="text-field" type="text" name="rangoslat" id="rangoslat" placeholder="Rangos de latitud">
+                </div>
+                <div style="display: flex; gap: 5px; width: 100%; justify-content: space-between; margin: 15px 0;">
+                    <input class="text-field" type="text" name="numpuntos" id="numpuntos" placeholder="Numeros de puntos">
+                </div>
+                <div style="display: flex; gap: 5px; width: 100%; justify-content: space-between; margin: 15px 0;">
+                    <input class="text-field" type="text" name="dispersion" id="dispersion" placeholder="Dispersion">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <button class="btn" type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw1Fti-DJpKLBumD9Q4HPhk_rmOO3xyPw&callback=initMap" async defer></script>
+
+    <script>
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 4,
+                center: { lat: 37.0902, lng: -95.7129 },
+            });
+            setMarkers(map);
+        }
+
+        function setMarkers(map) {
+            const image = {
+                url: "https://img.icons8.com/officel/35/sci-fi.png",
+                size: new google.maps.Size(35, 35),
+                origin: new google.maps.Point(0, 0),
+                anchor: new google.maps.Point(0, 35),
+            };
+
+            const shape = {
+                coords: [1, 1, 1, 20, 18, 20, 18, 1],
+                type: "poly",
+            };
+            
+            {% for point in points %}
+                let marker{{ point.id }} = new google.maps.Marker({
+                    position: { lat: {{ point.lat }}, lng: {{ point.lng }} },
+                    map,
+                    icon: image,
+                    shape: shape,
+                    zIndex: 1,
+                })
+            {% endfor %}
+        }
+    </script>
+
+{% endblock %}

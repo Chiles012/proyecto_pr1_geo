@@ -26,5 +26,6 @@ urlpatterns = [
     path('datametrics-mean/', views.metricsMean, name='datametrics-mean'), # mapa con promedio  
     path('graphics/', views.grafica, name='grafica'), # grafica
     path("mapa-poblaciones/", views.mapa_poblacion, name="mapa-poblaciones"), # mapa de poblaciones
-    path("crear-poblacion/", views.crear_poblacion, name="crear-poblacion"), # crear poblacion
+    path("crear-poblacion", views.crear_poblacion, name="crear-poblacion"), # crear poblacion
+    path()
 ]

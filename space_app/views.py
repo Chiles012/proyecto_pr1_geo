@@ -1,14 +1,31 @@
+from array import array
+from dis import dis
 import json
 from django.shortcuts import render, HttpResponse
-from space_app.models import Ufo, Meteorite
+from space_app.models import Kmean, Point, Ufo, Meteorite
 import numpy as np
 from django.db.models import Count
 from sklearn.datasets import make_blobs
 from django.views.decorators.csrf import csrf_exempt
+from sklearn.cluster import KMeans
+from sklearn import cluster
 
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
+
+# Mapas
+
+def mapa(request):
+    ufos = Ufo.encounters.all()
+
+    print(ufos)
+
+    context = {
+        'ufos': ufos
+    }
+
+    return render(request, 'mapa.html', context)
 
 def mapa_meteorite(request):
 
@@ -21,17 +38,6 @@ def mapa_meteorite(request):
     }
 
     return render(request, 'mapaMeteorites.html', context)
-
-def mapa(request):
-    ufos = Ufo.encounters.all()
-
-    print(ufos)
-
-    context = {
-        'ufos': ufos
-    }
-
-    return render(request, 'mapa.html', context)
 
 # Metricas
 encounter_seconds_array = np.array(Ufo.encounters.values_list("length_of_encounter_seconds"))
@@ -59,6 +65,8 @@ def metricsMean(request):
     }
     return render(request, 'promedioMetricas.html', context)
 
+# Gráficas
+
 def grafica(request):
 
     ufos_label = Ufo.encounters.values_list("city").distinct()[0:100]
@@ -79,15 +87,17 @@ def grafica(request):
 
     return render(request, 'graficas.html', context)
 
-def mapa_poblacion(request):
+# Mapa poblaciones
+
+def mapaPoblaciones(request):
     points = Point.objects.all()
 
-    return render(request, 'mapaPoblacion.html', {
+    return render(request, 'mapaPoblaciones.html', {
         'points': points
     })
 
 @csrf_exempt
-def crear_poblacion(request):
+def crearPoblacion(request):
     rangoslng = request.POST['rangoslng']
     rangoslat = request.POST['rangoslat']
     num_puntos = request.POST['numpuntos']
@@ -125,6 +135,62 @@ def crear_poblacion(request):
 
         points = Point.objects.all()
 
-        return render(request, 'mapa-poblaciones.html', {
+        return render(request, 'mapaPoblaciones.html', {
+            'points': points
+        })
+
+# Mapa personalizado
+
+def mapaPersonalizado(request):
+    points = Point.objects.all()
+
+    return render(request, 'mapaPersonalizado.html', {
+        'points': points
+    })
+
+@csrf_exempt
+def entrenarModelo(request):
+    num_clusters = request.POST['numclusters']
+    tolerancia = request.POST['tolerancia']
+    num_iteraciones = request.POST['numiteraciones']
+    dispersion = request.POST['dispersion']
+
+    num_clusters = int(num_clusters)
+    tolerancia = float(tolerancia)
+    num_iteraciones = int(num_iteraciones)
+    dispersion = float(dispersion)
+
+    if (num_iteraciones > 300):
+        return render(request, 'index.html', {
+            'error': 'El máximo de iteraciones es 300'
+        })
+    else:
+
+        kmean = Kmean()
+        kmean.numclusters = num_clusters
+        kmean.tolerancia = tolerancia
+        kmean.numiteraciones = num_iteraciones
+        kmean.dispersion = dispersion
+        kmean.save()
+
+        km = KMeans(
+            n_clusters=num_clusters,
+            init='random',
+            max_iter=num_iteraciones,
+            tol=tolerancia,
+            random_state=dispersion
+        )
+
+        points = Point.objects.all()
+        x = array([])
+        for i in points:
+            lat = points[i].lat
+            lng = points[i].lng
+            x.append([lat,lng])
+
+        # Clusters con los puntos
+        train_km = km.fit_predict(x)
+
+        return render(request, 'mapaPersonalizado.html', {
             'points': points
         })
